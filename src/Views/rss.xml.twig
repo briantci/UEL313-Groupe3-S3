@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Watson - Derniers liens</title>
+    <link>{{ app.request.scheme ~ '://' ~ app.request.host }}</link>
+    <description>Flux RSS des 15 derniers liens publiés sur Watson</description>
+    <language>fr-FR</language>
+    <lastBuildDate>{{ "now"|date("r") }}</lastBuildDate>
+
+    {% for link in links %}
+      <item>
+        <title>{{ link.title|e }}</title>
+        <link>{{ link.url|e }}</link>
+        <guid isPermaLink="true">{{ link.url|e }}</guid>
+        <pubDate>{% if link.createdAt is defined %}{{ link.createdAt|date("r") }}{% else %}{{ "now"|date("r") }}{% endif %}</pubDate>
+        <description><![CDATA[{{ link.description|raw }}]]></description>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>

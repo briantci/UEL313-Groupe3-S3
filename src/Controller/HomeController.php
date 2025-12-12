@@ -66,4 +66,15 @@ class HomeController {
             )
         );
     }
+
+    public function rssAction(Application $app) {
+    $links = $app['dao.link']->findLatest(15);
+    $content = $app['twig']->render('rss.xml.twig', array('links' => $links));
+    return new \Symfony\Component\HttpFoundation\Response(
+        $content,
+        200,
+        array('Content-Type' => 'application/rss+xml; charset=utf-8')
+        );
+    }
+
 }
