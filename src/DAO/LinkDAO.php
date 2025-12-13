@@ -193,4 +193,17 @@ class LinkDAO extends DAO
         return $_links;
     }
 
+    
+    /**
+     * Return the total number of links.
+     *
+     * @return int Total number of links
+     */
+    public function countAll(): int {
+        $sql = "
+            SELECT COUNT(*) FROM tl_liens
+        ";
+
+        return (int) $this->getDb()->fetchColumn($sql);
+    }
 }
