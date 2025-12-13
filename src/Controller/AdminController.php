@@ -20,11 +20,31 @@ class AdminController {
      * @param Application $app Silex application
      */
     public function indexAction(Application $app) {
-        $links = $app['dao.link']->findAll();
+
+        //Nombre max de liens par pages
+        $limit = 15;
+
+        //Détermine le numéro de page demandé si l'URL contient un param => prend cette valeur sinon default = 1
+        $page = isset($_GET['page']) && ctype_digit($_GET['page']) && $_GET['page'] > 0
+        ? (int) $_GET['page']
+        : 1;
+
+        //Determine le offset (A partir de quelle ligne MySQL doit commencer à récupérer les liens)
+        //Forcément multiple de limit. Ex: si on veut les liens de la page 3, faut ignorer les 2 (page 3 - 1) * 15 (limit) premiers liens
+        $offset = ($page - 1) * $limit;
+
+        $links = $app['dao.link']->findAllPaginated($limit, $offset);
+        $totalLinks = $app['dao.link']->countAll();
+        $totalPages = ceil($totalLinks / $limit);
+
         $users = $app['dao.user']->findAll();
-        return $app['twig']->render('admin.html.twig', array(
-            'links' => $links,
-            'users' => $users));
+
+        return $app['twig']->render('admin.html.twig', [
+            'links'       => $links,
+            'users'       => $users,
+            'currentPage' => $page,
+            'totalPages'  => $totalPages
+        ]);
     }
 
     /**
