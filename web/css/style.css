@@ -47,20 +47,42 @@ body {
 }
 
 .link-card {
-    border: 2px solid #151850;
-    border-radius: 15px;
-    padding: 15px;
-    margin: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
     background-color: #fff;
     transition: all 0.2s ease-in-out;
 }
 
 .link-card:hover {
-    border-color: #1f2368;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
+    border-color: #151850;
+    box-shadow: 0 6px 20px rgba(21, 24, 80, 0.15);
+    transform: translateY(-4px);
+}
+
+.link-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.link-card .badge {
+    font-weight: 500;
+    padding: 0.4em 0.6em;
+}
+
+.link-card .badge:hover {
+    background-color: #151850 !important;
 }
 
 .background-blue {
     background-color: #151850;
+}
+
+.btn-primary {
+    background-color: #151850;
+    border-color: #151850;
+}
+
+.btn-primary:hover {
+    background-color: #1f2368;
+    border-color: #1f2368;
 }
